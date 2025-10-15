@@ -75,28 +75,89 @@ a{ color:var(--accent); }
 .nav a:hover{ text-decoration:underline; }
 .nav .active{ color:#fff; text-decoration:underline; }
 
-    /* Resize profile photo to smaller, balanced proportions */
-header img {
-  width: 90px;
-  height: 90px;
-  border-radius: 8px;
+/* Layout: image left, name + nav right */
+header {
+  background: linear-gradient(180deg, rgba(15,17,21,.92), rgba(15,17,21,.7));
+  padding: 2em 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
   object-fit: cover;
   border: 2px solid #fff;
-  margin-top: 0.5em;
 }
+
+.intro-text {
+  text-align: left;
+}
+
+.intro-text h1 {
+  margin: 0 0 .5em;
+  color: var(--text);
+}
+
+.nav {
+  display: inline-flex;
+  gap: 1rem;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+.nav a:hover { text-decoration: underline; }
+.nav .active { color: #fff; text-decoration: underline; }
+
+/* For smaller screens, stack vertically */
+@media (max-width: 640px) {
+  .intro {
+    flex-direction: column;
+    text-align: center;
+  }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+}
+
   
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="my-photo.jpg" alt="Vincent Aem Valdez-Stanley" />
-    <h1>Vincent Aem Valdez-Stanley</h1>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html" class="active">Home</a>
-      <a href="projects.html">Projects</a>
-    </nav>
-  </header>
+<header>
+  <div class="intro">
+    <img src="my-photo.jpg" alt="Vincent Aem Valdez-Stanley" class="profile-pic" />
+    <div class="intro-text">
+      <h1>Vincent Aem Valdez-Stanley</h1>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
 
   <div class="container">
     <section id="about">
