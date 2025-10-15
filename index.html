@@ -93,10 +93,11 @@ header {
 }
 
 .profile-pic {
-  width: 120px;
-  height: 120px;
+  width: 160px;          /* wider rectangle */
+  height: 110px;         /* shorter height */
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: cover;     /* ensures it crops, not squishes */
+  object-position: center center; /* centers the visible area */
   border: 2px solid #fff;
 }
 
