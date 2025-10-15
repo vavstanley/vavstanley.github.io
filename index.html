@@ -5,155 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vincent Aem Valdez-Stanley – Resume</title>
   <style>
-    body {
+   :root{
+  --bg:#0f1115;        /* deep gray */
+  --panel:#141820;     /* card background */
+  --muted:#97a0af;     /* secondary text */
+  --text:#e7e9ee;      /* primary text */
+  --accent:#6ee7ff;    /* links, accents */
+  --border:#222737;    /* subtle borders */
+}
+
+/* Base + header */
+body{
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  background-color: #000; /* black background */
-  color: #fff; /* white text */
+  margin:0; padding:0; line-height:1.6;
+  background:var(--bg);
+  color:var(--text);
 }
-header {
-  background: #111;
-  padding: 2em;
-  text-align: center;
+header{
+  background:linear-gradient(180deg, rgba(15,17,21,.92), rgba(15,17,21,.7));
+  padding:2em; text-align:center; border-bottom:1px solid var(--border);
 }
-header img {
-  width: 120px;
-  height: 120px;
-  border-radius: 0%;
-  object-fit: cover;
-  border: 2px solid #fff;
-}
-h1 {
-  margin: 0.5em 0 0.2em;
-}
-.container {
-  max-width: 800px;
-  margin: 2em auto;
-  padding: 0 1em;
-}
-section {
-  margin-bottom: 2em;
-}
-h2 {
-  border-bottom: 2px solid #444;
-  padding-bottom: 0.5em;
-  margin-bottom: 1em;
-  color: #fff;
-}
-.job-title {
-  font-weight: bold;
-}
-.job-meta {
-  font-style: italic;
-  color: #aaa;
-}
-     ul {
-    margin: 0.5em 0 1.5em 1.2em;
-    padding-left: 1em;
-  }
+h1{ margin:.5em 0 .2em; color:var(--text); }
 
-  li {
-    margin-bottom: 0.4em;
-  }
-  ul ul {
-  margin-top: 0.3em;
-  margin-bottom: 0.6em;
-  padding-left: 1.5em;
-  list-style-type: circle; /* or 'disc', 'square' */
-  }
-.job {
-  margin-bottom: 2.5em;
-  border-bottom: 1px solid #333;
-  padding-bottom: 1.5em;
+/* Container + section headings */
+.container{ max-width:800px; margin:2em auto; padding:0 1em; }
+h2{
+  border-bottom:2px solid var(--border);
+  padding-bottom:.5em; margin-bottom:1em; color:var(--text);
 }
 
-.job-logo-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 1em;
-  margin-bottom: 1em;
+/* Text tones */
+.job-meta{ font-style:italic; color:var(--muted); }
+.education p{ color:var(--text); }
+a{ color:var(--accent); }
+
+/* Cards / separators */
+.job{
+  margin-bottom:2.5em;
+  border-bottom:1px solid var(--border);
+  padding-bottom:1.5em;
+}
+.school{
+  padding-bottom:1.5em; margin-bottom:2em;
+  border-bottom:1px solid var(--border);
 }
 
-.job-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 4px;
-  background-color: #fff;
-}
+/* Logos / images */
+.job-logo{ background:#fff; border-radius:4px; }
 
-.education p {
-  margin-bottom: 0.8em;
+/* Slideshow controls to match theme */
+.slideshow-container{ position:relative; max-width:100%; margin-top:1em; }
+.slide{ display:none; width:100%; border-radius:8px; }
+.prev,.next{
+  cursor:pointer; position:absolute; top:50%; width:auto; padding:.5em;
+  margin-top:-22px; color:#e7e9ee; font-weight:bold; font-size:1.4em;
+  transition:.3s; user-select:none; background-color:rgba(20,24,32,.6);
+  border:1px solid var(--border); border-radius:8px;
 }
+.prev{ left:0; } .next{ right:0; }
+.prev:hover,.next:hover{ background-color:rgba(20,24,32,.9); }
 
-.education p + p {
-  margin-top: 1.6em;
-  border-top: 1px solid #333;
-  padding-top: 1.2em;
+/* Top nav (same as we added before) */
+.nav{
+  margin-top:.75em; display:inline-flex; gap:1rem;
+  background:#0a0a0a; border:1px solid #222;
+  padding:8px 12px; border-radius:10px;
 }
-.school {
-  padding-bottom: 1.5em;
-  margin-bottom: 2em;
-  border-bottom: 1px solid #333;
-} 
-.slideshow-container {
-  position: relative;
-  max-width: 100%;
-  margin-top: 1em;
-}
-
-.slide {
-  display: none;
-  width: 100%;
-  border-radius: 8px;
-}
-
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 0.5em;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 1.5em;
-  transition: 0.3s;
-  user-select: none;
-  background-color: rgba(0,0,0,0.5);
-  border-radius: 4px;
-}
-
-.prev {
-  left: 0;
-}
-.next {
-  right: 0;
-}
-
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}  
-/* --- Simple top nav --- */
-.nav {
-  margin-top: 0.75em;
-  display: inline-flex;
-  gap: 1rem;
-  background: #0a0a0a;
-  border: 1px solid #222;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-.nav a {
-  color: #ddd;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-.nav a:hover { text-decoration: underline; }
-.nav .active { color: #fff; text-decoration: underline; }  
+.nav a{ color:#ddd; text-decoration:none; font-weight:600; font-size:.95rem; }
+.nav a:hover{ text-decoration:underline; }
+.nav .active{ color:#fff; text-decoration:underline; }
   </style>
 </head>
 <body>
