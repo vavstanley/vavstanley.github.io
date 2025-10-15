@@ -65,6 +65,17 @@
 .pdfBar .ghost { margin-right:auto; color:#9aa3b2; font-size:12px; }
 .btn { background:#1d2230; border:1px solid var(--border); color:var(--text); padding:6px 8px; border-radius:8px; font-size:13px; cursor:pointer }
 .btn:hover { border-color:#3a4360 }
+ /* Green primary button (Show Project) */
+.btn--green {
+  background:#16a34a;            /* emerald-600 */
+  border-color:#15803d;          /* emerald-700 */
+  color:#0b1a10;
+  font-weight:700;
+}
+.btn--green:hover {
+  border-color:#166534;          /* emerald-800 */
+  filter: brightness(1.02);
+}   
 
 /* Keep a generous viewer height; you can tweak */
 .pdfFrame { width:100%; height:82vh; border:0; display:block; background:#0c0f14 }
@@ -269,19 +280,17 @@ function renderItem(item){
 
   const d = new Date(item.date);
   const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
-  const tagsHtml = (item.tags||[]).map(t=>`<span class="chip" aria-hidden="true">${escapeHTML(t)}</span>`).join('');
 
+  // Build the static header (no tags row)
   el.innerHTML = `
     <div class="itemHeader">
       <h3>${escapeHTML(item.title)}</h3>
       <div class="meta">${dateText}</div>
     </div>
     ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
-    ${tagsHtml ? `<div class="chips">${tagsHtml}</div>` : ''}
     <div class="actions">
-      ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" download>Download PDF</a>`:''}
-      ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>`:''}
-      ${item.kind!=='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>`:''}
+      ${item.kind!=='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>` : ''}
+      <!-- For PDFs, we render no action buttons here to avoid duplicates with the PDF bar -->
     </div>`;
 
   // ---- Inline viewer for PDFs (collapsed by default) ----
@@ -301,7 +310,7 @@ function renderItem(item){
     box.innerHTML = `
       <div class="pdfBar">
         <span class="ghost">Inline preview</span>
-        <button class="btn" type="button" data-toggle="preview">Show Preview</button>
+        <button class="btn btn--green" type="button" data-toggle="preview">Show Project</button>
         <a class="btn" href="${item.url}" download>Download PDF</a>
         <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
       </div>
@@ -313,7 +322,6 @@ function renderItem(item){
     toggleBtn.addEventListener('click', () => {
       const expanded = box.getAttribute('data-expanded') === 'true';
       if (!expanded) {
-        // expanding
         if (!iframe) {
           iframe = document.createElement('iframe');
           iframe.className = 'pdfFrame';
@@ -324,12 +332,11 @@ function renderItem(item){
           iframe.style.display = 'block';
         }
         box.setAttribute('data-expanded', 'true');
-        toggleBtn.textContent = 'Hide Preview';
+        toggleBtn.textContent = 'Hide Project';
       } else {
-        // collapsing
         if (iframe) iframe.style.display = 'none';
         box.setAttribute('data-expanded', 'false');
-        toggleBtn.textContent = 'Show Preview';
+        toggleBtn.textContent = 'Show Project';
       }
     });
 
@@ -368,6 +375,7 @@ function renderItem(item){
 
 </body>
 </html>
+
 
 
 
