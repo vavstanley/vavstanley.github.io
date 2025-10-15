@@ -356,25 +356,27 @@ function renderItem(item){
     render();
   </script>
   
-  <script>
-  // Hide header when scrolling down, show when scrolling up
+<script>
+  // Instantly hide header on scroll down, show on scroll up
   let lastScrollY = window.scrollY;
   const siteHeader = document.querySelector('.site');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > lastScrollY && window.scrollY > 80) {
-      // scrolling down
+    if (window.scrollY > lastScrollY) {
+      // scrolling down → hide immediately
       siteHeader.style.transform = 'translateY(-100%)';
     } else {
-      // scrolling up (or near top)
+      // scrolling up → show immediately
       siteHeader.style.transform = 'translateY(0)';
     }
     lastScrollY = window.scrollY;
   });
 </script>
 
+
 </body>
 </html>
+
 
 
 
