@@ -219,70 +219,68 @@
       }
     }
 
-    function renderItem(item){
-      const el = document.createElement('article'); el.className='item';
-      const d = new Date(item.date);
-      const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
-      const tagsHtml = (item.tags||[]).map(t=>`<span class="chip" aria-hidden="true">${escapeHTML(t)}</span>`).join('');
+function renderItem(item){
+  const el = document.createElement('article'); 
+  el.className = 'item';
 
-      el.innerHTML = `
-        <div class="itemHeader">
-          <h3>${escapeHTML(item.title)}</h3>
-          <div class="meta">${dateText}</div>
+  const d = new Date(item.date);
+  const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
+  const tagsHtml = (item.tags||[]).map(t=>`<span class="chip" aria-hidden="true">${escapeHTML(t)}</span>`).join('');
+
+  el.innerHTML = `
+    <div class="itemHeader">
+      <h3>${escapeHTML(item.title)}</h3>
+      <div class="meta">${dateText}</div>
+    </div>
+    ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
+    ${tagsHtml ? `<div class="chips">${tagsHtml}</div>` : ''}
+    <div class="actions">
+      ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" download>Download PDF</a>`:''}
+      ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>`:''}
+      ${item.kind!=='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>`:''}
+    </div>`;
+
+  // ---- Inline viewer for PDFs (with page-fit / page-width) ----
+  if (item.kind === 'pdf') {
+    const box = document.createElement('div');
+    box.className = 'pdfWrap';
+
+    let viewerHtml = '';
+    try {
+      // Build absolute URL and choose zoom behavior by viewport
+      const absoluteUrl = new URL(item.url, window.location.href).href;
+      const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
+
+      // Construct the full viewer URL for PDF.js
+      const viewerUrl =
+        'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
+        encodeURIComponent(absoluteUrl) +
+        `#page=1&zoom=${zoomMode}`;
+
+      viewerHtml = `
+        <div class="pdfBar">
+          <span class="ghost">Inline preview</span>
+          <a class="btn" href="${item.url}" download>Download PDF</a>
+          <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
         </div>
-        ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
-        ${tagsHtml ? `<div class="chips">${tagsHtml}</div>` : ''}
-        <div class="actions">
-          ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" download>Download PDF</a>`:''}
-          ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>`:''}
-          ${item.kind!=='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>`:''}
+        <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>`;
+    } catch (e) {
+      console.error('PDF viewer error for', item.url, e);
+      viewerHtml = `
+        <div class="pdfBar">
+          <span class="ghost">Inline preview unavailable</span>
+          <a class="btn" href="${item.url}" download>Download PDF</a>
+          <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
         </div>`;
-
-      // Inline PDF viewer via PDF.js viewer
-// Build absolute URL and choose zoom behavior by viewport
-const absoluteUrl = new URL(item.url, window.location.href).href;
-
-// If the viewport is narrow, use page-width; otherwise page-fit
-const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-
-// Construct the full viewer URL for PDF.js
-const viewerUrl =
-  'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
-  encodeURIComponent(absoluteUrl) +
-  `#page=1&zoom=${zoomMode}`;
-
-// Embed the viewer with controls and iframe
-box.innerHTML = `
-  <div class="pdfBar">
-    <span class="ghost">Inline preview</span>
-    <a class="btn" href="${item.url}" download>Download PDF</a>
-    <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-  </div>
-  <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
-`;
-
-          viewerHtml = `
-            <div class="pdfBar">
-              <span class="ghost">Inline preview</span>
-              <a class="btn" href="${item.url}" download>Download PDF</a>
-              <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-            </div>
-            <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>`;
-        } catch (e) {
-          console.error('PDF viewer error for', item.url, e);
-          viewerHtml = `
-            <div class="pdfBar">
-              <span class="ghost">Inline preview unavailable</span>
-              <a class="btn" href="${item.url}" download>Download PDF</a>
-              <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-            </div>`;
-        }
-        box.innerHTML = viewerHtml;
-        el.appendChild(box);
-      }
-
-      return el;
     }
+
+    box.innerHTML = viewerHtml;
+    el.appendChild(box);
+  }
+
+  return el;
+}
+
 
     function escapeHTML(s){
       return String(s).replace(/[&<>\"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -292,6 +290,7 @@ box.innerHTML = `
   </script>
 </body>
 </html>
+
 
 
 
