@@ -239,14 +239,28 @@
         </div>`;
 
       // Inline PDF viewer via PDF.js viewer
-      if (item.kind === 'pdf') {
-        const box = document.createElement('div');
-        box.className = 'pdfWrap';
-        let viewerHtml = '';
-        try {
-          const absoluteUrl = new URL(item.url, window.location.href).href;
-          const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
-                            encodeURIComponent(absoluteUrl) + '#page=1';
+// Build absolute URL and choose zoom behavior by viewport
+const absoluteUrl = new URL(item.url, window.location.href).href;
+
+// If the viewport is narrow, use page-width; otherwise page-fit
+const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
+
+// Construct the full viewer URL for PDF.js
+const viewerUrl =
+  'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
+  encodeURIComponent(absoluteUrl) +
+  `#page=1&zoom=${zoomMode}`;
+
+// Embed the viewer with controls and iframe
+box.innerHTML = `
+  <div class="pdfBar">
+    <span class="ghost">Inline preview</span>
+    <a class="btn" href="${item.url}" download>Download PDF</a>
+    <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
+  </div>
+  <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
+`;
+
           viewerHtml = `
             <div class="pdfBar">
               <span class="ghost">Inline preview</span>
@@ -278,5 +292,6 @@
   </script>
 </body>
 </html>
+
 
 
