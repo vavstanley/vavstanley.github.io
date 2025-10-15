@@ -135,7 +135,25 @@ h2 {
 
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
-}   
+}  
+/* --- Simple top nav --- */
+.nav {
+  margin-top: 0.75em;
+  display: inline-flex;
+  gap: 1rem;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.nav a:hover { text-decoration: underline; }
+.nav .active { color: #fff; text-decoration: underline; }  
   </style>
 </head>
 <body>
@@ -143,6 +161,10 @@ h2 {
   <header>
     <img src="my-photo.jpg" alt="Vincent Aem Valdez-Stanley" />
     <h1>Vincent Aem Valdez-Stanley</h1>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
+      <a href="projects.html">Projects</a>
+    </nav>
   </header>
 
   <div class="container">
