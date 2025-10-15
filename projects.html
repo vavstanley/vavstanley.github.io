@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vincent Aem Valdez-Stanley — Projects</title>
+  <meta name="description" content="Projects: PDFs (and future videos) by Vincent Aem Valdez-Stanley." />
+  <style>
+    :root{
+      --bg:#0f1115;
+      --panel:#141820;
+      --muted:#97a0af;
+      --text:#e7e9ee;
+      --accent:#6ee7ff;
+      --chip:#242938;
+      --chipText:#cfd6e6;
+      --border:#222737;
+      --shadow:0 6px 18px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      letter-spacing:.2px;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Top header + nav (matches resume site) */
+    .site{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.1) blur(6px);
+      background:linear-gradient(180deg, rgba(15,17,21,.92), rgba(15,17,21,.7));
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:14px 18px}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .left{display:flex; align-items:center; gap:14px}
+    .avatar{
+      width:44px; height:44px; border-radius:10px; flex:0 0 auto; background:#2b2f3d;
+      background-size:cover; background-position:center; border:1px solid var(--border);
+      background-image:url('my-photo.jpg'); /* optional square headshot */
+    }
+    .title{font-weight:700; font-size:18px; margin:0}
+    .subtitle{margin:0; font-size:12px; color:var(--muted)}
+    .nav {
+      display:inline-flex; gap:1rem; background:#0a0a0a; border:1px solid #222;
+      padding:8px 12px; border-radius:10px;
+    }
+    .nav a { color:#ddd; text-decoration:none; font-weight:600; font-size:.95rem; }
+    .nav a:hover{ text-decoration:underline }
+    .nav .active{ color:#fff; text-decoration:underline }
+
+    /* Controls */
+    .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .control{display:flex; align-items:center; gap:10px; background:var(--panel); padding:10px 12px; border-radius:12px; border:1px solid var(--border)}
+    .control input[type="text"], .control select{
+      background:transparent; border:none; outline:none; color:var(--text); font-size:14px; min-width:160px;
+    }
+
+    /* Tag chips */
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{background:var(--chip); color:var(--chipText); padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid var(--border); cursor:pointer; user-select:none}
+    .chip.active{background:#2c3550; color:#f1f5ff; border-color:#343f66}
+
+    /* List */
+    .list{max-width:1100px; margin:18px auto; padding:0 18px; display:grid; grid-template-columns:1fr; gap:16px}
+    .item{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow)}
+    .itemHeader{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .item h3{margin:0; font-size:18px}
+    .meta{color:var(--muted); font-size:12px}
+    .desc{margin:10px 0 14px; color:#d7dbe5}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{background:#1d2230; border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:10px; font-size:14px; cursor:pointer}
+    .btn:hover{border-color:#3a4360}
+
+    /* Inline PDF viewer */
+    .pdfWrap{margin-top:12px; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0c0f14}
+    .pdfBar{display:flex; justify-content:flex-end; align-items:center; gap:10px; padding:8px; border-bottom:1px solid var(--border); background:#0d1117}
+    .pdfBar .ghost{margin-right:auto; color:#9aa3b2; font-size:12px}
+    .pdfFrame{width:100%; height:820px; border:0; display:block; background:#0c0f14}
+
+    footer{max-width:1100px; margin:40px auto 60px; padding:0 18px; color:var(--muted); font-size:12px}
+
+    @media (max-width:640px){
+      .avatar{width:36px; height:36px}
+      .title{font-size:16px}
+      .desc{font-size:14px}
+      .pdfFrame{height:68vh}
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky header -->
+  <header class="site">
+    <div class="wrap">
+      <div class="row">
+        <div class="left">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <p class="title">Vincent Aem Valdez-Stanley</p>
+            <p class="subtitle">Projects — PDFs (videos coming soon)</p>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a class="active" href="projects.html" aria-current="page">Projects</a>
+        </nav>
+      </div>
+
+      <!-- Controls: search, year, tags -->
+      <div class="controls" aria-label="filters">
+        <label class="control" title="Search title & description">
+          <span class="ghost">Search</span>
+          <input id="q" type="text" placeholder="e.g., Reconciliation Templates" />
+        </label>
+        <label class="control" title="Filter by year">
+          <span class="ghost">Year</span>
+          <select id="year"><option value="">All</option></select>
+        </label>
+        <div id="tags" class="chips" role="group" aria-label="Filter by tag"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content list -->
+  <main class="list" id="list" aria-live="polite"></main>
+
+  <footer>
+    <p>Tip: PDFs render inline below each post. Use the buttons to download or open in a new tab.</p>
+  </footer>
+
+  <script>
+    /* ===== CONTENT DATA =====
+       Replace the urls and titles below with the exact file names/titles
+       of the three PDFs you attached.
+    */
+    const ITEMS = [
+      {
+    id: 'p001',
+    title: '1. Proposed Process for Efficiently Assigning Allocation Markers to Ledger',
+    date: '2025-10-14',
+    tags: ['Process','Accounting'],
+    desc: 'Proposed approach for assigning allocation markers efficiently within a ledger workflow.',
+    url: 'Proposed Process for Efficiently Assigning Allocation Markers to Ledger.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'p002',
+    title: '2. Process Definition Document for Complex Intercompany Reconciliation of a Fortune 50 Company',
+    date: '2025-10-14',
+    tags: ['Intercompany','Reconciliation','Accounting'],
+    desc: 'End-to-end process definition for complex intercompany reconciliation at scale.',
+    url: 'Process Definition Document for Complex Intercompany Reconciliation of a Fortune 50 Company.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'p003',
+    title: '3. Process Instructions for Using a New VBA Macro to Automate a Bank Reconciliation Process',
+    date: '2025-10-14',
+    tags: ['VBA','Automation','Bank Reconciliation'],
+    desc: 'Step-by-step usage guide for a VBA macro that automates bank reconciliation.',
+    url: 'Process Instructions for Using a New VBA Macro to Automate a Bank Reconciliation Process.pdf',
+    kind: 'pdf'
+  }
+
+      // Example (future): a video link you host elsewhere
+      // { id:'v001', title:'Automation Walkthrough', date:'2025-11-01', tags:['Video'], desc:'7-minute overview.',
+      //   url:'https://your.video.link', kind:'link' }
+    ];
+
+    /* ===== RENDERING ===== */
+    const list = document.getElementById('list');
+    const q = document.getElementById('q');
+    const year = document.getElementById('year');
+    const tags = document.getElementById('tags');
+
+    // derive years and tags
+    const years = [...new Set(ITEMS.map(i=>new Date(i.date).getFullYear()))].sort((a,b)=>b-a);
+    years.forEach(y=>{
+      const opt=document.createElement('option');
+      opt.value=String(y); opt.textContent=String(y);
+      year.appendChild(opt);
+    });
+
+    const tagSet = new Set(ITEMS.flatMap(i=>i.tags||[]));
+    const activeTags = new Set();
+    [...tagSet].sort().forEach(t=>{
+      const chip = document.createElement('button');
+      chip.className = 'chip'; chip.textContent = t; chip.setAttribute('data-tag', t);
+      chip.addEventListener('click', ()=>{
+        chip.classList.toggle('active');
+        activeTags.has(t) ? activeTags.delete(t) : activeTags.add(t);
+        render();
+      });
+      tags.appendChild(chip);
+    });
+
+    [q, year].forEach(el=>el.addEventListener('input', render));
+
+    function matches(item){
+      const term = q.value.trim().toLowerCase();
+      const okTerm = !term || (item.title+" "+(item.desc||'')).toLowerCase().includes(term);
+      const okYear = !year.value || String(new Date(item.date).getFullYear())===year.value;
+      const okTags = activeTags.size===0 || (item.tags||[]).some(t=>activeTags.has(t));
+      return okTerm && okYear && okTags;
+    }
+
+    function render(){
+      const sorted = [...ITEMS].sort((a,b)=> new Date(b.date) - new Date(a.date));
+      list.innerHTML = '';
+      sorted.filter(matches).forEach(item=> list.appendChild(renderItem(item)));
+      if(!list.children.length){
+        const empty = document.createElement('p');
+        empty.className='ghost wrap';
+        empty.textContent='No items match your filters.';
+        list.appendChild(empty);
+      }
+    }
+
+    function renderItem(item){
+      const el = document.createElement('article'); el.className='item';
+      const d = new Date(item.date);
+      const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
+      const tagsHtml = (item.tags||[]).map(t=>`<span class="chip" aria-hidden="true">${escapeHTML(t)}</span>`).join('');
+
+      el.innerHTML = `
+        <div class="itemHeader">
+          <h3>${escapeHTML(item.title)}</h3>
+          <div class="meta">${dateText}</div>
+        </div>
+        ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
+        ${tagsHtml ? `<div class="chips">${tagsHtml}</div>` : ''}
+        <div class="actions">
+          ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" download>Download PDF</a>`:''}
+          ${item.kind==='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>`:''}
+          ${item.kind!=='pdf' ? `<a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>`:''}
+        </div>`;
+
+      // Inline PDF viewer via PDF.js viewer
+      if (item.kind === 'pdf') {
+        const box = document.createElement('div');
+        box.className = 'pdfWrap';
+        let viewerHtml = '';
+        try {
+          const absoluteUrl = new URL(item.url, window.location.href).href;
+          const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
+                            encodeURIComponent(absoluteUrl) + '#page=1';
+          viewerHtml = `
+            <div class="pdfBar">
+              <span class="ghost">Inline preview</span>
+              <a class="btn" href="${item.url}" download>Download PDF</a>
+              <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
+            </div>
+            <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>`;
+        } catch (e) {
+          console.error('PDF viewer error for', item.url, e);
+          viewerHtml = `
+            <div class="pdfBar">
+              <span class="ghost">Inline preview unavailable</span>
+              <a class="btn" href="${item.url}" download>Download PDF</a>
+              <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
+            </div>`;
+        }
+        box.innerHTML = viewerHtml;
+        el.appendChild(box);
+      }
+
+      return el;
+    }
+
+    function escapeHTML(s){
+      return String(s).replace(/[&<>\"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    render();
+  </script>
+</body>
+</html>
