@@ -140,8 +140,16 @@ header {
     height: 100px;
   }
 }
+/* Prevent name from breaking into multiple lines */
+.title {
+  white-space: nowrap;
+}
 
-  
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.2rem; /* slightly smaller on narrow screens */
+  }
+}
   </style>
 </head>
 <body>
