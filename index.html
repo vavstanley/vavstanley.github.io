@@ -152,36 +152,41 @@ header {
   .intro-text h1 {
     font-size: clamp(16px, 5vw, 32px);
 }
-  /* Ensure PDF viewer buttons are equal size and consistent */
-.pdfBar .btn {
-  flex: 1 1 0;             /* let them share space evenly */
-  text-align: center;
-  min-width: 110px;        /* consistent minimum width */
-  justify-content: center;
-  display: inline-flex;
+/* === Uniform PDF viewer buttons (mobile + desktop) === */
+.pdfBar {
+  display: flex;
   align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;               /* allow clean wrapping when narrow */
 }
 
-/* On smaller screens, make them stack neatly if needed */
-@media (max-width: 480px) {
-  .pdfBar {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .pdfBar .btn {
-    flex: 1 0 45%;         /* 2 per row on small screens */
-    margin: 4px 0;
-  }
-}
+/* Make all buttons identical height and prevent multi-line labels */
 .pdfBar .btn {
-  flex: 1 1 0;
-  text-align: center;
-  min-width: 110px;
-  justify-content: center;
-  display: inline-flex;
-  align-items: center;
-  height: 40px;   /* ✅ explicitly enforces equal height */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important; /* keep each label on one line */
+  height: 44px !important;        /* same height */
+  min-width: 140px !important;    /* enough space for "Open in New Tab" */
+  flex: 1 1 0 !important;         /* equal width distribution */
+  padding: 0 12px !important;     /* consistent horizontal padding */
 }
+
+/* On small phones, stack for perfect equality */
+@media (max-width: 480px){
+  .pdfBar .btn {
+    flex: 1 0 100% !important;    /* full-width, one per row */
+    margin: 2px 0;
+  }
+}
+
+/* If you prefer two per row on small screens, comment the block above
+   and use this instead:
+@media (max-width: 480px){
+  .pdfBar .btn { flex: 1 0 48% !important; }
+}
+*/
+
   </style>
 </head>
 <body>
