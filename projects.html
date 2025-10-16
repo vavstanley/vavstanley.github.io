@@ -65,17 +65,20 @@
 .pdfBar .ghost { margin-right:auto; color:#9aa3b2; font-size:12px; }
 .btn { background:#1d2230; border:1px solid var(--border); color:var(--text); padding:6px 8px; border-radius:8px; font-size:13px; cursor:pointer }
 .btn:hover { border-color:#3a4360 }
-/* Stronger override for the green button */
-.btn.btn--green{
-  background:#16a34a !important;
-  border-color:#15803d !important;
-  color:#0b1a10 !important;
-  font-weight:700;
+/* Softer, bordered style for "Show Project" */
+.btn.btn--green {
+  background: transparent !important;
+  border: 2px solid #22c55e !important;   /* bold emerald border */
+  color: #22c55e !important;              /* green text */
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
 }
-.btn.btn--green:hover{
-  border-color:#166534 !important;
-  filter:brightness(1.02);
+
+.btn.btn--green:hover {
+  background: #22c55e !important;         /* fills on hover */
+  color: #0f1115 !important;              /* dark text */
 }
+
 
 /* Keep a generous viewer height; you can tweak */
 .pdfFrame { width:100%; height:82vh; border:0; display:block; background:#0c0f14 }
@@ -403,6 +406,7 @@ function renderItem(item){
 
 </body>
 </html>
+
 
 
 
