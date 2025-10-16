@@ -153,6 +153,36 @@ header {
     font-size: clamp(16px, 5vw, 32px);
   }
 }
+  /* Ensure PDF viewer buttons are equal size and consistent */
+.pdfBar .btn {
+  flex: 1 1 0;             /* let them share space evenly */
+  text-align: center;
+  min-width: 110px;        /* consistent minimum width */
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* On smaller screens, make them stack neatly if needed */
+@media (max-width: 480px) {
+  .pdfBar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pdfBar .btn {
+    flex: 1 0 45%;         /* 2 per row on small screens */
+    margin: 4px 0;
+  }
+}
+.pdfBar .btn {
+  flex: 1 1 0;
+  text-align: center;
+  min-width: 110px;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;   /* ✅ explicitly enforces equal height */
+}
   </style>
 </head>
 <body>
