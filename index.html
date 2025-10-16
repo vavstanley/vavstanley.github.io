@@ -139,17 +139,14 @@ header {
     width: 100px;
     height: 100px;
   }
-}
-/* Prevent name from breaking into multiple lines */
+/* Force name to stay on one line and expand as needed */
 .title {
-  white-space: nowrap;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  display: inline-block;
+  font-size: clamp(1.2rem, 4vw, 1.8rem); /* scales nicely on mobile */
 }
 
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.2rem; /* slightly smaller on narrow screens */
-  }
-}
   </style>
 </head>
 <body>
