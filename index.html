@@ -139,14 +139,20 @@ header {
     width: 100px;
     height: 100px;
   }
-/* Force name to stay on one line and expand as needed */
-.title {
-  white-space: nowrap !important;
-  flex-shrink: 0;
-  display: inline-block;
-  font-size: clamp(1.2rem, 4vw, 1.8rem); /* scales nicely on mobile */
+/* Keep name on one line and scale on small screens */
+.intro-text h1 {
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  line-height: 1.1;
+  font-size: clamp(18px, 5.6vw, 36px);
 }
 
+@media (max-width: 360px){
+  .intro-text h1 {
+    font-size: clamp(16px, 5vw, 32px);
+  }
+}
   </style>
 </head>
 <body>
@@ -155,7 +161,7 @@ header {
   <div class="intro">
     <img src="my-photo.jpg" alt="Vincent Aem Valdez-Stanley" class="profile-pic" />
     <div class="intro-text">
-      <h1>Vincent Aem Valdez-Stanley</h1>
+      <h1>Vincent Aem Valdez&#8209;Stanley</h1>
       <nav class="nav" aria-label="Primary">
         <a href="index.html" class="active">Home</a>
         <a href="projects.html">Projects</a>
